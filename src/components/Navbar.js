@@ -27,10 +27,10 @@ function Navbar() {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container">
 
-                {/* Logo */}
+                
                 <span className="navbar-brand">Water Tracker</span>
 
-                {/* Links */}
+                
                 <div className="collapse navbar-collapse">
                     <ul className="navbar-nav ms-auto">
 

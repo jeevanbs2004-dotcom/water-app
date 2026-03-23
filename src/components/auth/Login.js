@@ -42,24 +42,39 @@ function Login() {
     }
 
     return (
-        <div>
-            <h2>Login</h2>
+        <div className="container mt-3">
+            <div className="col-6 mx-auto">
+            
+            
+             <h2 className="text-center">Login</h2>
+            
 
-            {errorMessage && <p>{errorMessage}</p>}
-
-            <input
+             {errorMessage && (
+    <div className="alert alert-danger">
+        {errorMessage}
+    </div>
+)}
+              
+             <div>
+               <input 
+               className="form-control mb-2"
                 type="text"
                 placeholder="Email"
                 onChange={(e)=>setEmail(e.target.value)}
-            />
-
-            <input
+               />
+             </div> 
+             
+             <div>
+              <input
+              className="form-control mb-2"
                 type="password"
                 placeholder="Password"
                 onChange={(e)=>setPassword(e.target.value)}
-            />
+              />
+             </div> 
 
-            <button onClick={attemptLogin}>Login</button>
+             <button className="btn btn-primary" onClick={attemptLogin}>Login</button>
+            </div>    
         </div>
     );
 }

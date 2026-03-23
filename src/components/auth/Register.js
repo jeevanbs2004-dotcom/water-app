@@ -36,24 +36,45 @@ function Register() {
     }
 
     return (
-        <div>
-            <h2>Register</h2>
+        <div className="container mt-3">
+            <div className="col-6 mx-auto">
+
+            <h2 className="text-center mb-3">Register</h2>
 
             {errorMessage && <p>{errorMessage}</p>}
-
-            <input placeholder="Name"
+             
+            <div>
+            <input 
+                className="form-control mb-2"
+                placeholder="Name"
                 onChange={(e)=>setName(e.target.value)} />
+            </div> 
 
-            <input placeholder="Email"
+            <div> 
+            <input 
+                className="form-control mb-2"
+                placeholder="Email"
                 onChange={(e)=>setEmail(e.target.value)} />
+            </div> 
 
-            <input type="password" placeholder="Password"
+            <div>
+            <input 
+                className="form-control mb-2"
+                type="password" 
+                placeholder="Password"
                 onChange={(e)=>setPassword(e.target.value)} />
+            </div> 
 
-            <input type="password" placeholder="Confirm Password"
+            <div>
+            <input
+             className="form-control mb-2"
+             type="password" 
+             placeholder="Confirm Password"
                 onChange={(e)=>setPasswordConf(e.target.value)} />
 
-            <button onClick={registerUser}>Register</button>
+            <button className="btn btn-primary w-100" onClick={registerUser}>Register</button>
+            </div>
+        </div>
         </div>
     );
 }

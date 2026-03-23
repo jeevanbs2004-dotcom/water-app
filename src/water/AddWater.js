@@ -9,7 +9,7 @@ function AddWater() {
     const user = useSelector(store => store.auth.user);
     const navigate = useNavigate();
 
-    // ✅ PROTECT PAGE (only logged in users)
+    
     useEffect(() => {
         if (!user) {
             navigate("/login");
@@ -17,13 +17,15 @@ function AddWater() {
     }, [user, navigate]);
 
     function addWater() {
-        // ❌ prevent empty input
+        
         if (!quantity || quantity <= 0) {
             setMessage("Enter valid quantity");
             return;
         }
 
-        let data = JSON.parse(localStorage.getItem("water")) || [];
+        let key = "water_" + user.email;
+
+        let data = JSON.parse(localStorage.getItem(key)) || [];
 
         let today = new Date().toISOString().split("T")[0];
 
@@ -40,10 +42,10 @@ function AddWater() {
             time: new Date().toLocaleTimeString()
         });
 
-        localStorage.setItem("water", JSON.stringify(data));
+        localStorage.setItem(key, JSON.stringify(data));
 
-        setMessage("Added successfully ✅");
-        setQuantity(''); // ✅ clear input
+        setMessage("Added successfully ");
+        setQuantity(''); 
     }
 
     return (

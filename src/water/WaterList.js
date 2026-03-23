@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 function WaterList() {
+    const user = useSelector(store => store.auth.user);
+
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
 
@@ -9,46 +12,59 @@ function WaterList() {
 
     const limit = 5;
 
+    
     useEffect(() => {
-        let stored = JSON.parse(localStorage.getItem("water")) || [];
+        if (!user) return;
+
+        let key = "water_" + user.email;
+
+        let stored = JSON.parse(localStorage.getItem(key)) || [];
         setData(stored);
-    }, []);
+    }, [user]);
 
-    const start = (page - 1) * limit;
-    const paginated = data.slice(start, start + limit);
-
-    // ✅ DELETE FUNCTION
+    
     function deleteItem(index) {
+        if (!user) return;
+
         let updated = [...data];
         updated.splice(index, 1);
 
-        localStorage.setItem("water", JSON.stringify(updated));
+        let key = "water_" + user.email;
+        localStorage.setItem(key, JSON.stringify(updated));
+
         setData(updated);
     }
 
-    // ✅ UPDATE FUNCTION
+   
     function updateItem(index) {
+        if (!user) return;
+
         let updated = [...data];
 
         updated[index].quantity = newQuantity;
 
-        localStorage.setItem("water", JSON.stringify(updated));
+        let key = "water_" + user.email;
+        localStorage.setItem(key, JSON.stringify(updated));
+
         setData(updated);
 
         setEditIndex(null);
         setNewQuantity('');
     }
 
+    const start = (page - 1) * limit;
+    const paginated = data.slice(start, start + limit);
+
     return (
         <div className="container">
             <h2>Water List</h2>
 
             {paginated.map((item, i) => {
-                const index = (page - 1) * limit + i; // ✅ FIXED INDEX
+                const index = (page - 1) * limit + i;
 
                 return (
                     <div key={index}>
-                        {item.date} - 
+                        {item.date} -
 
                         {editIndex === index ? (
                             <>
@@ -77,14 +93,14 @@ function WaterList() {
 
             <br />
 
-            <button 
+            <button
                 disabled={page === 1}
                 onClick={()=>setPage(page-1)}
             >
                 Prev
             </button>
 
-            <button 
+            <button
                 disabled={start + limit >= data.length}
                 onClick={()=>setPage(page+1)}
             >
